@@ -15,6 +15,7 @@ namespace Lab02_UnitTesting
 
         static void UserMenu()
         {
+            // inital prompt to user
             Console.WriteLine("Welcome to Cadena Bank. What would you like to do?");
             Console.WriteLine("1) Check your BALANCE");
             Console.WriteLine("2) Make a DEPOSIT");
@@ -26,6 +27,7 @@ namespace Lab02_UnitTesting
         static void HandleUserChoice()
         {
             string picked = Console.ReadLine();
+            // Determine which method to run based on user input
             switch (picked)
             {
                 case "1":

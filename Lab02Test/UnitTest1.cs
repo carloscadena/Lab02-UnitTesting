@@ -13,9 +13,6 @@ namespace Lab02Test
         }
         [Theory]
         [InlineData(1000)]
-        [InlineData(356)]
-        [InlineData(50)]
-        [InlineData(95)]
         public void canReturnCorrectBalance(int money)
         {
             Assert.Equal(2000,)
