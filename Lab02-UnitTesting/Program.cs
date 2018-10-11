@@ -23,6 +23,81 @@ namespace Lab02_UnitTesting
             HandleUserChoice();
         }
         
-        
+        static void HandleUserChoice()
+        {
+            string picked = Console.ReadLine();
+            switch (picked)
+            {
+                case "1":
+                    CheckBalance();
+                    break;
+                case "2":
+                    ManageBalance(DepositMoney());
+                    break;
+                case "3":
+                    ManageBalance(Withdraw());
+                    break;
+                case "4":
+                    Console.WriteLine("Thanks for banking!");
+                    Environment.Exit(0);
+                    break;
+            }
+        }
+        static void CheckBalance()
+        {
+            Console.WriteLine($"Your balance is ${bankBalance}");
+            Console.WriteLine("Would you like to make another transaction? Y or N");
+            if(Console.ReadLine().ToLower() == "y")
+            {
+                UserMenu();
+            }
+            else
+            {
+                Console.WriteLine("Thanks for banking!");
+                Environment.Exit(0);
+            }
+        }
+        static void ManageBalance(int money)
+        {
+            bankBalance += money;
+            if(money <= 0)
+            {
+                Console.WriteLine($"Your balance is now ${bankBalance}");
+            }
+            else
+            {
+                Console.WriteLine($"Thank you for your deposit. Your new balance is ${bankBalance}");
+            }
+            Console.WriteLine("Would you like to make another transaction? Y or N");
+            if (Console.ReadLine().ToLower() == "y")
+            {
+                UserMenu();
+            }
+            else
+            {
+                Console.WriteLine("Thanks for banking!");
+                Environment.Exit(0);
+            }
+        }
+        static int DepositMoney()
+        {
+            Console.WriteLine("How much money will you be depositing today?");
+            int amountToDeposit = int.Parse(Console.ReadLine());
+            return amountToDeposit;                    
+        }
+        static int Withdraw()
+        {
+            Console.WriteLine($"How much of your money would you like today? Your balance is ${bankBalance}.");
+            int amountToWithdraw = int.Parse(Console.ReadLine());
+            if (amountToWithdraw > bankBalance)
+            {
+                Console.WriteLine("Insufficient Funds.");
+                return 0;
+            }
+            else
+            {
+                return -amountToWithdraw;
+            }
+        }
     }
 }
