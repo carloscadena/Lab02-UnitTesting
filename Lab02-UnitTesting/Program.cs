@@ -2,19 +2,20 @@
 
 namespace Lab02_UnitTesting
 {
-    class Program
+    public class Program
     {
         public static int bankBalance = 1000;
 
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
             UserMenu();
             
         }
 
-        static void UserMenu()
+        public static void UserMenu()
         {
+            // inital prompt to user
             Console.WriteLine("Welcome to Cadena Bank. What would you like to do?");
             Console.WriteLine("1) Check your BALANCE");
             Console.WriteLine("2) Make a DEPOSIT");
@@ -23,19 +24,27 @@ namespace Lab02_UnitTesting
             HandleUserChoice();
         }
         
-        static void HandleUserChoice()
+        public static void HandleUserChoice()
         {
             string picked = Console.ReadLine();
+            // Determine which method to run based on user input
             switch (picked)
             {
                 case "1":
                     CheckBalance();
+                    AfterTransaction();
                     break;
                 case "2":
-                    ManageBalance(DepositMoney());
+                    Console.WriteLine("How much money will you be depositing today?");
+                    int amountToDeposit = int.Parse(Console.ReadLine());
+                    DepositMoney(amountToDeposit);
+                    AfterTransaction();
                     break;
                 case "3":
-                    ManageBalance(Withdraw());
+                    Console.WriteLine($"How much of your money would you like today? Your balance is ${bankBalance}.");
+                    int amountToWithdraw = int.Parse(Console.ReadLine());
+                    Withdraw(amountToWithdraw);
+                    AfterTransaction();
                     break;
                 case "4":
                     Console.WriteLine("Thanks for banking!");
@@ -43,31 +52,14 @@ namespace Lab02_UnitTesting
                     break;
             }
         }
-        static void CheckBalance()
+        public static int CheckBalance()
         {
             Console.WriteLine($"Your balance is ${bankBalance}");
-            Console.WriteLine("Would you like to make another transaction? Y or N");
-            if(Console.ReadLine().ToLower() == "y")
-            {
-                UserMenu();
-            }
-            else
-            {
-                Console.WriteLine("Thanks for banking!");
-                Environment.Exit(0);
-            }
+            return bankBalance;
+            
         }
-        static void ManageBalance(int money)
+        public static void AfterTransaction()
         {
-            bankBalance += money;
-            if(money <= 0)
-            {
-                Console.WriteLine($"Your balance is now ${bankBalance}");
-            }
-            else
-            {
-                Console.WriteLine($"Thank you for your deposit. Your new balance is ${bankBalance}");
-            }
             Console.WriteLine("Would you like to make another transaction? Y or N");
             if (Console.ReadLine().ToLower() == "y")
             {
@@ -79,24 +71,23 @@ namespace Lab02_UnitTesting
                 Environment.Exit(0);
             }
         }
-        static int DepositMoney()
+        public static int DepositMoney(int amount)
         {
-            Console.WriteLine("How much money will you be depositing today?");
-            int amountToDeposit = int.Parse(Console.ReadLine());
-            return amountToDeposit;                    
+            bankBalance += amount;
+            Console.WriteLine($"Your balance is now ${bankBalance}");
+            return bankBalance;                    
         }
-        static int Withdraw()
+        public static int Withdraw(int amount)
         {
-            Console.WriteLine($"How much of your money would you like today? Your balance is ${bankBalance}.");
-            int amountToWithdraw = int.Parse(Console.ReadLine());
-            if (amountToWithdraw > bankBalance)
+            if (amount > bankBalance)
             {
                 Console.WriteLine("Insufficient Funds.");
-                return 0;
+                return bankBalance;
             }
             else
             {
-                return -amountToWithdraw;
+                bankBalance -= amount;
+                return bankBalance;
             }
         }
     }

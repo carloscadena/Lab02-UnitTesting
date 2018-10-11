@@ -1,6 +1,6 @@
 using System;
 using Xunit;
-using static Lab02-UnitTesting.Program;
+using static Lab02_UnitTesting.Program;
 
 namespace Lab02Test
 {
@@ -11,14 +11,15 @@ namespace Lab02Test
         {
             Assert.Equal(1000, CheckBalance());
         }
-        [Theory]
-        [InlineData(1000)]
-        [InlineData(356)]
-        [InlineData(50)]
-        [InlineData(95)]
-        public void canReturnCorrectBalance(int money)
+        [Fact]
+        public void Deposit1000()
         {
-            Assert.Equal(2000,)
+            Assert.Equal(2000, DepositMoney(1000));
         }
+        [Fact]
+        //public void Withdraw1000()
+        //{
+        //    Assert.Equal(0, Withdraw(1000));
+        //}
     }
 }
