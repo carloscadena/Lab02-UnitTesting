@@ -36,9 +36,20 @@ namespace Lab02_UnitTesting
                     break;
                 case "2":
                     Console.WriteLine("How much money will you be depositing today?");
-                    int amountToDeposit = int.Parse(Console.ReadLine());
-                    DepositMoney(amountToDeposit);
-                    AfterTransaction();
+                    try
+                    {
+                        int amountToDeposit = int.Parse(Console.ReadLine());
+                        DepositMoney(amountToDeposit);
+                        AfterTransaction();
+
+                    }
+                    catch (FormatException)
+                    {
+
+                        Console.WriteLine("Please enter only numbers.");
+                        UserMenu();
+                    }
+                    
                     break;
                 case "3":
                     Console.WriteLine($"How much of your money would you like today? Your balance is ${bankBalance}.");
@@ -49,6 +60,10 @@ namespace Lab02_UnitTesting
                 case "4":
                     Console.WriteLine("Thanks for banking!");
                     Environment.Exit(0);
+                    break;
+                default:
+                    Console.WriteLine("Invalid Choice.");
+                    UserMenu();
                     break;
             }
         }
